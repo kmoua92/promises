@@ -1,3 +1,6 @@
+var promiseHelpers = require('./promisification');
+var promiseConstructors = require('./promiseConstructor');
+
 /*
  * Write a function WITH NO CALLBACKS that,
  * (1) reads a GitHub username from a `readFilePath`
@@ -14,7 +17,20 @@ var Promise = require('bluebird');
 
 
 var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
-  // TODO
+
+  // (1) reads a GitHub username from a `readFilePath`
+  return promiseConstructors.pluckFirstLineFromFileAsync(readFilePath)
+
+  // (2) then, sends a request to the GitHub API for the user's profile
+  .then((user) => {
+    promiseHelpers.getGitHubProfileAsync(user)
+  // (3) then, writes the JSON response of the API to `writeFilePath`
+    .then((body) => {
+      body = JSON.stringify(body);
+      fs.writeFile(writeFilePath, body);
+    });
+  });
+
 };
 
 // Export these functions so we can test them

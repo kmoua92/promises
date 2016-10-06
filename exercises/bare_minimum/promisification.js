@@ -42,19 +42,19 @@ var generateRandomTokenAsync = Promise.promisify(generateRandomToken);
 
 
 // (3) Asyncronous file manipulation
-var readFileAndMakeItFunny = function(filePath, callback) {
-  fs.readFile(filePath, 'utf8', function(err, file) {
-    if (err) { return callback(err); }
+// var readFileAndMakeItFunny = function(filePath, callback) {
+//   fs.readFile(filePath, 'utf8', function(err, file) {
+//     if (err) { return callback(err); }
    
-    var funnyFile = file.split('\n')
-      .map(function(line) {
-        return line + ' lol';
-      })
-      .join('\n');
+//     var funnyFile = file.split('\n')
+//       .map(function(line) {
+//         return line + ' lol';
+//       })
+//       .join('\n');
 
-    callback(funnyFile);
-  });
-};
+//     callback(funnyFile);
+//   });
+// };
 
 var readFileAndMakeItFunnyAsync = function(filePath) {
 
